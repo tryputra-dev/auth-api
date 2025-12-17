@@ -25,3 +25,22 @@ jobs:
 
       - name: Execute Tests
         run: npx jest tests/Simple.test.js
+
+  deploy:
+    name: Continuous Deployment (VPS)
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.PASSWORD }}
+          script: |
+            cd /home/auth-api
+            git pull origin main
+            npm install --production
+            npm run migrate up
+            pm2 reload auth-api --update-env
