@@ -5,6 +5,7 @@ const users = require("../../Interface/http/api/users");
 const authentications = require("../../Interface/http/api/authentications");
 const comments = require("../../Interface/http/api/comments");
 const threads = require("../../Interface/http/api/threads");
+const healths = require("../../Interface/http/api/healths");
 const Jwt = require("@hapi/jwt");
 
 const createServer = async (container) => {
@@ -54,6 +55,10 @@ const createServer = async (container) => {
     },
     {
       plugin: comments,
+      options: { container },
+    },
+    {
+      plugin: healths,
       options: { container },
     },
   ]);
