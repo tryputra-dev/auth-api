@@ -1,6 +1,6 @@
 # Dependency folder (wajib di-ignore)
 node_modules/
-
+coverage/
 # File rahasia (wajib di-ignore)
 .env
 .test.env

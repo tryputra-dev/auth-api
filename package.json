@@ -1,5 +1,5 @@
 {
-  "name": "starter-project-service",
+  "name": "auth-api",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -22,6 +22,7 @@
     "dotenv": "^17.2.3",
     "instances-container": "^2.0.6",
     "nanoid": "^3.3.11",
+    "node-pg-migrate": "^8.0.3",
     "pg": "^8.16.3"
   },
   "devDependencies": {
@@ -30,7 +31,6 @@
     "eslint": "^9.39.1",
     "globals": "^16.5.0",
     "jest": "^30.2.0",
-    "node-pg-migrate": "^8.0.3",
     "nodemon": "^3.1.11"
   }
 }
