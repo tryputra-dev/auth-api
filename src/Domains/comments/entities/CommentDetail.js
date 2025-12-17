@@ -1,0 +1,35 @@
+class CommentDetail {
+  constructor(payload) {
+    this._verifyPayload(payload);
+
+    const { id, username, date, content, is_deleted } = payload;
+    this.id = id;
+    this.username = username;
+    this.date = date;
+    this.content = is_deleted ? "**komentar telah dihapus**" : content;
+  }
+
+  _verifyPayload({ id, username, date, content, is_deleted }) {
+    if (
+      !id ||
+      !username ||
+      !date ||
+      !content ||
+      is_deleted === undefined ||
+      is_deleted === null
+    ) {
+      throw new Error("COMMENT_DETAIL.NOT_CONTAIN_NEEDED_PROPERTY");
+    }
+    if (
+      typeof id !== "string" ||
+      typeof username !== "string" ||
+      typeof date !== "string" ||
+      typeof content !== "string" ||
+      typeof is_deleted !== "boolean"
+    ) {
+      throw new Error("COMMENT_DETAIL.NOT_MEET_DATA_TYPE_SPECIFICATION");
+    }
+  }
+}
+
+module.exports = CommentDetail;

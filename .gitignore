@@ -1,0 +1,19 @@
+# Dependency folder (wajib di-ignore)
+node_modules/
+
+# File rahasia (wajib di-ignore)
+.env
+.test.env
+
+# Log error
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Folder build/dist (jika ada)
+dist/
+build/
+
+# File sistem (macOS/Windows)
+.DS_Store
+Thumbs.db
