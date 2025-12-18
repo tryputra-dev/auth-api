@@ -1,7 +1,7 @@
 const routes = (handler) => [
   {
     method: "GET",
-    path: "/health",
+    path: "/",
     handler: handler.getHealthHandler,
   }
 ];
