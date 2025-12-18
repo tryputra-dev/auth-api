@@ -52,7 +52,7 @@ jobs:
           echo "ACCCESS_TOKEN_AGE=${{ secrets.ACCCESS_TOKEN_AGE_TEST }}" >> .test.env
 
       - name: Run Database Migrations
-        run: npm run migrate up
+        run: npm run migrate:test up
 
       - name: Execute Tests
         run: npm run test:single
