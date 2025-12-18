@@ -52,16 +52,9 @@ jobs:
           echo "ACCCESS_TOKEN_AGE=${{ secrets.ACCCESS_TOKEN_AGE_TEST }}" >> .test.env
 
       - name: Run Database Migrations
-        env:
-          PGHOST: ${{ secrets.PGHOST_TEST }}
-          PGPORT: ${{ secrets.PGPORT_TEST }}
-          PGUSER: ${{ secrets.PGUSER_TEST }}
-          PGPASSWORD: ${{ secrets.PGPASSWORD_TEST }}
-          PGDATABASE: ${{ secrets.PGDATABASE_TEST }}
         run: npm run migrate up
 
       - name: Execute Tests
-        env:
         run: npm run test:single
 
   deploy:
