@@ -7,7 +7,7 @@ class HealthsHandler {
     return {
       status: 'ok',
       message: 'Server is healthy',
-      version: '1.0.3',
+      version: '1.0.0',
       uptime: process.uptime(),
       timestamp: new Date().toISOString(),
     };
