@@ -10,6 +10,21 @@ jobs:
   test:
     name: Continuous Integration (Testing)
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: ${{ secrets.PGUSER_TEST }}
+          POSTGRES_PASSWORD: ${{ secrets.PGPASSWORD_TEST }}
+          POSTGRES_DB: ${{ secrets.PGDATABASE_TEST }}
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -23,8 +38,24 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Create .test.env file
+        run: |
+          echo "PGHOST=${{ secrets.PGHOST_TEST }}" >> .test.env
+          echo "PGPORT=${{ secrets.PGPORT_TEST }}" >> .test.env
+          echo "PGUSER=${{ secrets.PGUSER_TEST }}" >> .test.env
+          echo "PGPASSWORD=${{ secrets.PGPASSWORD_TEST }}" >> .test.env
+          echo "PGDATABASE=${{ secrets.PGDATABASE_TEST }}" >> .test.env
+          echo "HOST=${{ secrets.HOST_TEST }}" >> .test.env
+          echo "PORT=${{ secrets.PORT_TEST }}" >> .test.env
+          echo "ACCESS_TOKEN_KEY=${{ secrets.ACCESS_TOKEN_KEY_TEST }}" >> .test.env
+          echo "REFRESH_TOKEN_KEY=${{ secrets.REFRESH_TOKEN_KEY_TEST }}" >> .test.env
+          echo "ACCCESS_TOKEN_AGE=${{ secrets.ACCCESS_TOKEN_AGE_TEST }}" >> .test.env
+
+      - name: Run Database Migrations
+        run: npm run migrate:test up
+
       - name: Execute Tests
-        run: npx jest tests/Simple.test.js
+        run: npm run test:single
 
   deploy:
     name: Continuous Deployment (VPS)
@@ -40,6 +71,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           script: |
             cd /home/auth-api
+            git checkout main
             git pull origin main
             npm install --production
             npm run migrate up
