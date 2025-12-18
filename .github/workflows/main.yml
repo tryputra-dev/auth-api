@@ -75,4 +75,5 @@ jobs:
             git pull origin main
             npm install --production
             npm run migrate up
-            pm2 reload auth-api --update-env
+            pm2 reload auth-api --update-env || pm2 start src/server.js --name "auth-api"
+            pm2 save
