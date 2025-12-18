@@ -2,8 +2,6 @@
 node_modules/
 coverage/
 # File rahasia (wajib di-ignore)
-.env
-.test.env
 
 # Log error
 npm-debug.log*
